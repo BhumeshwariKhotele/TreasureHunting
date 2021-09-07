@@ -4,46 +4,46 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-  
-    private CharacterController character;
-    [SerializeField]
-    private float playerspeed = 5;
-    private float gravity = 9.8f;
- 
-    public static PlayerMovement instance;
 
 
+    CharacterController characterController;
+    Animator anim;
+    [SerializeField] private float playerMoveSpeed;
+    //ScoreBoard scoreboard;
+    [SerializeField] private float turnSpeed;
 
-    private void Awake()
-    {
-        instance = this;
-    }
-    // Start is called before the first frame update
+
     void Start()
-    { 
-        character = GetComponent<CharacterController>();
+    {
+        characterController = GetComponent<CharacterController>();
+        anim = GetComponentInChildren<Animator>();
+        //  scoreboard = GameObject.Find("ScoreDisplay").GetComponent<ScoreBoard>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-        Movement();
+        var horizontalMovement = Input.GetAxis("Horizontal");
+        var verticalMovement = Input.GetAxis("Vertical");
 
-        //raycast from the centre of main camera
+        var playerMovement = new Vector3(horizontalMovement, 0, verticalMovement);
+        anim.SetFloat("Speed", verticalMovement);
+        transform.Rotate(Vector3.up, horizontalMovement * Time.deltaTime * turnSpeed);
 
+        if (verticalMovement != 0)
+        {
+            characterController.SimpleMove(transform.forward * Time.deltaTime * playerMoveSpeed);
+        }
 
     }
 
- 
-
-    private void Movement()
+    private void OnCollisionEnter(Collision collision)
     {
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Vector3 velocity = direction * playerspeed;
-        velocity.y -= gravity;
-        velocity = transform.transform.TransformDirection(velocity);
-        character.Move(velocity * Time.deltaTime);
+        if (collision.gameObject.tag == "CheckPoint")
+        {
+            Debug.Log(gameObject.name);
+            Debug.Log(collision.gameObject.name);
+
+        }
     }
-  
 }
