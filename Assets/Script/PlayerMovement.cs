@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +17,14 @@ public class PlayerMovement : MonoBehaviour
     public Text checkPointText;
     [SerializeField] Transform cameraPoint;
 
+
+    [SerializeField] Image Star_one;
+    [SerializeField] Image Star_two;
+    [SerializeField] Image Star_three;
+    [SerializeField] Image Star_four;
+    [SerializeField] Image Star_five;
+    
+    
     private void Awake()
     {
         if (instance == null)
@@ -46,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            
              FireGun();
         }
     }
@@ -76,21 +87,31 @@ public class PlayerMovement : MonoBehaviour
         {
             checkPointText.text = "Go Straight";
             Destroy(other.gameObject);
-
+           
         }
-
-         if(other.gameObject.tag=="Fuel")
+        else if (other.gameObject.tag == "TurnLeft")
+        {
+            Debug.Log(other.gameObject.name);
+            checkPointText.text = "Take Left";
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag=="TurnRight")
+        {
+            Debug.Log(other.gameObject.name);
+            checkPointText.text = "Take Right";
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "Fuel")
         {
             Debug.Log(other.gameObject.name);
             checkPointText.text = "Got the fuel";
             Destroy(other.gameObject);
         }
-
-        if (other.gameObject.tag == "Boat")
+        else if (other.gameObject.tag == "Boat")
         {
             Debug.Log(other.gameObject.name);
             checkPointText.text = "Reached Boat";
-           
+            SceneManager.LoadScene(3);
         }
     }
 }

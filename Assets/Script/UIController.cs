@@ -14,4 +14,8 @@ public class UIController : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        healthSlider.maxValue = 10.0f;
+    }
 }

@@ -8,6 +8,8 @@ TagManager:
   - Fuel
   - Boat
   - Enemy
+  - TurnLeft
+  - TurnRight
   layers:
   - Default
   - TransparentFX
