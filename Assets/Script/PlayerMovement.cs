@@ -12,19 +12,20 @@ public class PlayerMovement : MonoBehaviour
     CharacterController characterController;
     Animator anim;
     [SerializeField] private float playerMoveSpeed;
-    //ScoreBoard scoreboard;
+  
     [SerializeField] private float turnSpeed;
     public Text checkPointText;
     [SerializeField] Transform cameraPoint;
 
+    AudioSource audioSource;
+    public AudioClip audioClip;
 
-    [SerializeField] Image Star_one;
-    [SerializeField] Image Star_two;
-    [SerializeField] Image Star_three;
-    [SerializeField] Image Star_four;
-    [SerializeField] Image Star_five;
-    
-    
+    public Image star1;
+    public Image star2;
+    public Image star3;
+    public Image star4;
+    public Image star5;
+
     private void Awake()
     {
         if (instance == null)
@@ -37,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
-        //  scoreboard = GameObject.Find("ScoreDisplay").GetComponent<ScoreBoard>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -56,17 +57,26 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            
-             FireGun();
+            audioSource.clip = audioClip;
+            audioSource.Play();
+            FireGun();
         }
+      
+
     }
 
     void FireGun()
     {
+     
+
         Debug.DrawRay(cameraPoint.position, cameraPoint.transform.forward * 200f, Color.red, 2f);
         RaycastHit hit;
         if (Physics.Raycast(cameraPoint.position, cameraPoint.transform.forward, out hit))
         {
+            HitMarkerManager.hitinstance.instancePoint = hit.point;
+            HitMarkerManager.hitinstance.SpawnMarker();
+
+
             if (hit.collider.gameObject.tag == "Enemy")
             {
 
@@ -80,38 +90,66 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
+   
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "CheckPoint")
+        if (other.gameObject.tag == "CheckPoint1")
         {
+            star1.gameObject.SetActive(true);
             checkPointText.text = "Go Straight";
             Destroy(other.gameObject);
            
         }
+       else if (other.gameObject.tag == "CheckPoint2")
+        {
+            star2.gameObject.SetActive(true);
+            checkPointText.text = "Go Straight";
+            Destroy(other.gameObject);
+
+        }
+        else if (other.gameObject.tag == "CheckPoint3")
+        {
+            star4.gameObject.SetActive(true);
+            checkPointText.text = "Go Straight";
+            Destroy(other.gameObject);
+
+        }
+        else if (other.gameObject.tag == "CheckPoint4")
+        {
+            star5.gameObject.SetActive(true);
+            checkPointText.text = "Go Straight";
+            Destroy(other.gameObject);
+
+        }
         else if (other.gameObject.tag == "TurnLeft")
         {
-            Debug.Log(other.gameObject.name);
+            star3.gameObject.SetActive(true);
             checkPointText.text = "Take Left";
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag=="TurnRight")
         {
-            Debug.Log(other.gameObject.name);
+            star3.gameObject.SetActive(true);
             checkPointText.text = "Take Right";
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Fuel")
         {
-            Debug.Log(other.gameObject.name);
+           
             checkPointText.text = "Got the fuel";
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Boat")
         {
-            Debug.Log(other.gameObject.name);
-            checkPointText.text = "Reached Boat";
+             checkPointText.text = "Reached Boat";
             SceneManager.LoadScene(3);
         }
+        else if(other.gameObject.tag=="Enemy")
+        {
+            
+            PlayerHealth.instance.TakeDamage(1);
+        }
     }
+
+    
 }

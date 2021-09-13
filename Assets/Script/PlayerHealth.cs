@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     public int startHealth = 10;
     [SerializeField]
-    public int currentHealth;
+    public int currentHealth=0;
     public static PlayerHealth instance;
 
     private void Awake()
@@ -20,9 +20,9 @@ public class PlayerHealth : MonoBehaviour
     public void Start()
     {
 
-        Time.timeScale = 1;
+       Time.timeScale = 1;
         currentHealth = startHealth;
-        UIController.instance.healthSlider.maxValue = startHealth;
+        UIController.instance.healthSlider.value = startHealth;
 
     }
 
@@ -41,9 +41,10 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+
         gameObject.SetActive(false);
         Time.timeScale = 0;
-
+        SceneManager.LoadScene(4);
     }
 
 }

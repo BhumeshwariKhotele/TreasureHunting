@@ -8,6 +8,10 @@ public class EnemyMovement : MonoBehaviour
     Aggro_Detection aggro;
     NavMeshAgent nav;
     Transform enemyTarget;
+    public GameObject[] goals;
+    Vector3 lastgoal;
+    public float chasingPoint;
+
     private void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
@@ -22,6 +26,11 @@ public class EnemyMovement : MonoBehaviour
         this.enemyTarget = target;
     }
 
+    public void SetLocation()
+    {
+        nav.SetDestination(goals[Random.Range(0, goals.Length)].transform.position);
+        anim.SetBool("isRun", true);
+    }
 
     private void Update()
     {
@@ -29,10 +38,31 @@ public class EnemyMovement : MonoBehaviour
         {
             nav.SetDestination(enemyTarget.position);
             float enemySpeed = nav.velocity.magnitude;
-            anim.SetFloat("enemySpeed", enemySpeed);
+            anim.SetBool("isRun", true);
+        }
+        if (nav.remainingDistance < 3)
+        {
+            SetLocation();
         }
 
     }
 }
-
-
+/*
+{ 
+  
+// Start is called before the first frame update
+   
+    // Update is called once per frame
+    void Update()
+    {
+        if (Vector3.Distance(transform.position, PlayerMovement.instance.transform.position) < chasingPoint)
+        {
+            enemyScript.enabled = true;
+        }
+        else
+        {
+            enemyScript.enabled = false;
+        }
+       
+    }
+}*/

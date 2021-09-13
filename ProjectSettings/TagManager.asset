@@ -10,6 +10,10 @@ TagManager:
   - Enemy
   - TurnLeft
   - TurnRight
+  - CheckPoint1
+  - CheckPoint2
+  - CheckPoint3
+  - CheckPoint4
   layers:
   - Default
   - TransparentFX
