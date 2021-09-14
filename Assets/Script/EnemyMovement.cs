@@ -47,22 +47,3 @@ public class EnemyMovement : MonoBehaviour
 
     }
 }
-/*
-{ 
-  
-// Start is called before the first frame update
-   
-    // Update is called once per frame
-    void Update()
-    {
-        if (Vector3.Distance(transform.position, PlayerMovement.instance.transform.position) < chasingPoint)
-        {
-            enemyScript.enabled = true;
-        }
-        else
-        {
-            enemyScript.enabled = false;
-        }
-       
-    }
-}*/

@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
             HitMarkerManager.hitinstance.instancePoint = hit.point;
             HitMarkerManager.hitinstance.SpawnMarker();
 
-
             if (hit.collider.gameObject.tag == "Enemy")
             {
 
@@ -136,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
         else if (other.gameObject.tag == "Fuel")
         {
            
-            checkPointText.text = "Got the fuel";
+            checkPointText.text = "Got the fuel\nGo to boat";
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Boat")
