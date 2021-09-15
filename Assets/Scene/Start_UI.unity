@@ -308,7 +308,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerName: XYZ
   PlayerAge: 31
-  PlayerScore: 0
 --- !u!4 &66424191
 Transform:
   m_ObjectHideFlags: 0

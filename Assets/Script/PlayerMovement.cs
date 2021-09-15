@@ -41,8 +41,9 @@ public class PlayerMovement : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         var horizontalMovement = Input.GetAxis("Horizontal");
         var verticalMovement = Input.GetAxis("Vertical");

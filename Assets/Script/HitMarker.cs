@@ -18,6 +18,5 @@ public class HitMarker : MonoBehaviour
     public void PushtoPool()
     {
         HitMarkerManager.hitinstance.AddHitMarkerPool(this.gameObject);
-        //Destroy(this.gameObject);
-    }
+         }
 }

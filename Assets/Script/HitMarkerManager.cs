@@ -18,11 +18,6 @@ public class HitMarkerManager : MonoBehaviour
         CreatePrefabs(1);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //print(hitmarkerpool.Count); 
-    }
     void CreatePrefabs(int value)
     {
         for (int i = 0; i < value; i++)
@@ -40,7 +35,7 @@ public class HitMarkerManager : MonoBehaviour
     {
         if (hitmarkerpool.Count == 0)
         {
-            CreatePrefabs(10);
+            CreatePrefabs(1);
         }
         GameObject temp = hitmarkerpool.Pop();
         temp.SetActive(true);
