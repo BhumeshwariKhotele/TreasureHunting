@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        if(instance==null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -23,9 +23,9 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        foreach (Sounds item in sounds )
+        foreach (Sounds item in sounds)
         {
-            item.audioSource= gameObject.AddComponent<AudioSource > ();
+            item.audioSource = gameObject.AddComponent<AudioSource>();
             item.audioSource.clip = item.audioclip;
             item.audioSource.volume = item.volume;
             item.audioSource.pitch = item.pitch;
@@ -41,8 +41,8 @@ public class AudioManager : MonoBehaviour
 
     public void StopPlayAudio(string name)
     {
-    Sounds s=Array.Find(sounds, Sounds=>Sounds.audioName==name);
-        if(s==null)
+        Sounds s = Array.Find(sounds, Sounds => Sounds.audioName == name);
+        if (s == null)
         {
             Debug.LogWarning("Hey Audioname" + name + "Not Found");
             return;
@@ -73,6 +73,6 @@ public class AudioManager : MonoBehaviour
         {
             s.audioSource.volume = volumeValue;
         }
-        
+
     }
 }

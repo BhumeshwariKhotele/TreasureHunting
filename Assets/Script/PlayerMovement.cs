@@ -12,14 +12,11 @@ public class PlayerMovement : MonoBehaviour
     CharacterController characterController;
     Animator anim;
     [SerializeField] private float playerMoveSpeed;
-  
     [SerializeField] private float turnSpeed;
     public Text checkPointText;
     [SerializeField] Transform cameraPoint;
-
-    AudioSource audioSource;
-    public AudioClip audioClip;
-
+    int checkPointCount;
+    bool fuelCheck = false;
     public Image star1;
     public Image star2;
     public Image star3;
@@ -38,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
-        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -58,8 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            audioSource.clip = audioClip;
-            audioSource.Play();
+            AudioManager.instance.PlayAudio("Bullet");
             FireGun();
         }
       
@@ -95,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "CheckPoint1")
         {
+            checkPointCount++;
             star1.gameObject.SetActive(true);
             checkPointText.text = "Go Straight";
             Destroy(other.gameObject);
@@ -102,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         }
        else if (other.gameObject.tag == "CheckPoint2")
         {
+            checkPointCount++;
             star2.gameObject.SetActive(true);
             checkPointText.text = "Go Straight";
             Destroy(other.gameObject);
@@ -109,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.tag == "CheckPoint3")
         {
+            checkPointCount++;
             star4.gameObject.SetActive(true);
             checkPointText.text = "Go Straight";
             Destroy(other.gameObject);
@@ -116,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.tag == "CheckPoint4")
         {
+            checkPointCount++;
             star5.gameObject.SetActive(true);
             checkPointText.text = "Go Straight";
             Destroy(other.gameObject);
@@ -123,26 +122,31 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.tag == "TurnLeft")
         {
+            checkPointCount++;
             star3.gameObject.SetActive(true);
             checkPointText.text = "Take Left";
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag=="TurnRight")
         {
+            checkPointCount++;
             star3.gameObject.SetActive(true);
             checkPointText.text = "Take Right";
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Fuel")
         {
-           
+            fuelCheck = true;
             checkPointText.text = "Got the fuel\nGo to boat";
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Boat")
         {
-             checkPointText.text = "Reached Boat";
-            SceneManager.LoadScene(3);
+            if(checkPointCount==5 && fuelCheck==true)
+            {
+                checkPointText.text = "Reached Boat";
+                SceneManager.LoadScene(3);
+            }
         }
         else if(other.gameObject.tag=="Enemy")
         {

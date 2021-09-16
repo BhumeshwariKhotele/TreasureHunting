@@ -12,6 +12,7 @@ public class EnemyHealth : MonoBehaviour
         currentEnemyHealth += damage;
         if (currentEnemyHealth > enemyHealth)
         {
+            AudioManager.instance.PlayAudio("EnemyDeath");
             this.gameObject.SetActive(false);
             Instantiate(particleEffect, transform.position, Quaternion.identity);
 
